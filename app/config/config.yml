@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@AppBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -66,3 +67,39 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+    assets:
+        bootstrap:
+            inputs:
+                - "assets/css/bootstrap/bootstrap.css"
+                - "assets/css/bootstrap/bootstrap-new.css"
+                - "assets/css/bootstrap/bootstrap-theme.css"
+        defaults:
+            inputs:
+                - "assets/css/navbar-fixed-top.css"
+                - "assets/css/helper.css"
+        jquery_css:
+            inputs:
+                - "assets/css/library/jquery-ui.css"
+                - "assets/css/library/jquery-ui.structure.css"
+        library_js:
+            inputs:
+                - 'assets/js/library/jquery-ui.js'
+                - 'assets/js/bootstrap-datepicker.js'
+                - 'assets/js/bootstrap-datepicker.fr.min.js'
+
+white_october_breadcrumbs:
+    separator:          ''
+    separatorClass:     'separator'
+    listId:             'wo-breadcrumbs'
+    listClass:          'breadcrumb'
+    itemClass:          ''
+    linkRel:            ''
+    locale:             ~ # defaults to null, so the default locale is used
+    translation_domain: ~ # defaults to null, so the default domain is used
+    viewTemplate:       'WhiteOctoberBreadcrumbsBundle::breadcrumbs.html.twig'
