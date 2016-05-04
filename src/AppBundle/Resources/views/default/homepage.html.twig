@@ -1,0 +1,38 @@
+{% extends 'AppBundle:Default:index.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+{% block body %}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <div class="container">
+        {{ wo_render_breadcrumbs() }}
+        <div class="row">
+            <h1 class="h2">La déprime - dernières quotes</h1>
+            {% for quote in quotes %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Posté par {{ quote.author.username|default("un utilisateur anonyme") }}
+                            le {{ quote.date|date("y-m-d") }}
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ quote.content }}
+                    </div>
+                    <div class="panel-footer">
+                        Votez :
+                        <span data-toggle="tooltip" data-placement="right" title="Voter pour (+)">
+                            <a href="#">(+)</a>
+                        </span>
+                        <span data-toggle="tooltip" data-placement="right" title="Voter contre (-)">
+                            <a href="#">(-)</a>
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

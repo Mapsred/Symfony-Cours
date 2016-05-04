@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block title %}Accueil{% endblock %} - La déprime</title>
+    <meta name="description" content="{% block description %}La déprime est développé en symfony dans le cadre
+    du rattrapage du cours de symfony à SupInternet{% endblock %}">
+    {% block viewport %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">{% endblock %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+    {% javascripts 'assets/js/bootstrap.js'
+    output='compiled/js/main.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% stylesheets '@bootstrap' '@defaults' output='compiled/css/main.css' %}
+    <link href="{{ asset_url }}" rel="stylesheet">
+    {% endstylesheets %}
+
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+{% include 'AppBundle:Parts:nav.html.twig' %}
+
+{% block body %}{% endblock %}
+
+<footer class="footer">
+    <div class="container">
+        <div class="text-muted">
+            <span class="right-object">Développé par <a href="https://github.com/Mapsred">François Mathieu</a></span>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
