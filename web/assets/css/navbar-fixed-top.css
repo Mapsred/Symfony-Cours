@@ -1,0 +1,38 @@
+body {
+  padding-top: 70px;
+  margin-bottom: 60px;
+  background-color: #f7f7f7;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 50px;
+  background-color: #272727;
+}
+
+.container .text-muted {
+  margin :15px 0;
+}
+
+.right-object {
+  float : right;
+}
+
+@media (max-width : 768px) {
+  .footer {
+    height: 55px;
+  }
+  .right-object {
+    float : left;
+  }
+  .container .text-muted {
+    margin :10px 0;
+  }
+}
