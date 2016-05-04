@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Quote;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +13,98 @@ use Doctrine\ORM\EntityRepository;
  */
 class QuoteRepository extends EntityRepository
 {
+    /**
+     * @param string $order
+     * @return array
+     */
+    public function findAllByDate($order = "DESC")
+    {
+        return $this->createQueryBuilder('query')
+            ->orderBy("query.date", $order)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param string $order
+     * @param int $limit
+     * @return array
+     */
+    public function findLimitByDate($order = "DESC", $limit = 5)
+    {
+        return $this->createQueryBuilder('query')
+            ->orderBy("query.date", $order)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param int $limit
+     * @return array
+     */
+    public function findLimitLast($limit = 5)
+    {
+        return $this->createQueryBuilder('query')
+            ->orderBy("query.id", "DESC")
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return array
+     */
+    public function findAllAndVoteCount()
+    {
+        $quotes = $this->findAll();
+        $end = [];
+
+        foreach ($quotes as $key => $quote) {
+            $end[$key] = [
+                'quote' => $quote,
+                'yes' => $this->countTypeVoteForQuote($quote, "yes"),
+                'no' => $this->countTypeVoteForQuote($quote, "no"),
+            ];
+        }
+
+        return $end;
+    }
+
+    /**
+     * @param Quote $quote
+     * @param string $type
+     * @return int
+     */
+    public function countTypeVoteForQuote(Quote $quote, $type = "no")
+    {
+        return $this->_em->getRepository("AppBundle:Vote")->countTypeForQuote($quote, $type);
+    }
+
+    /**
+     * @return array
+     */
+    public function findAllAndVote()
+    {
+        $quotes = $this->findAll();
+        $end = [];
+
+        foreach ($quotes as $key => $quote) {
+            $end[$key] = [
+                'quote' => $quote,
+                'yes' => $this->getVoteRepo()->findByQuoteAndType($quote, "yes"),
+                'no' => $this->getVoteRepo()->findByQuoteAndType($quote, "no"),
+            ];
+        }
+
+        return $end;
+    }
+
+    /**
+     * @return VoteRepository
+     */
+    private function getVoteRepo()
+    {
+        return $this->_em->getRepository("AppBundle:Vote");
+    }
 }

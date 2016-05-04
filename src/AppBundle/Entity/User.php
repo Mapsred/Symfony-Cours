@@ -48,8 +48,7 @@ class User
      * @ORM\Column(name="last_connexion", type="datetime")
      */
     private $lastConnexion;
-
-
+    
     /**
      * Get id
      *

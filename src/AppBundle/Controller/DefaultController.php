@@ -16,7 +16,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $twigArray['quotes'] = $this->getDoctrine()->getRepository("AppBundle:Quote")->findAll();
+        $quoteRepo = $this->getDoctrine()->getRepository("AppBundle:Quote");
+
+        $twigArray['limit'] = 5;
+        $twigArray['quotes'] = $quoteRepo->findLimitLast($twigArray['limit']);
+
         return $this->render("AppBundle:default:homepage.html.twig", $twigArray);
     }
 

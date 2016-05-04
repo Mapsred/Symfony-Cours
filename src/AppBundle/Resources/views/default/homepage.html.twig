@@ -10,7 +10,7 @@
     <div class="container">
         {{ wo_render_breadcrumbs() }}
         <div class="row">
-            <h1 class="h2">La déprime - dernières quotes</h1>
+            <h1 class="h2">La déprime - {{ limit }} dernières quotes</h1>
             {% for quote in quotes %}
                 <div class="panel panel-default">
                     <div class="panel-heading">
