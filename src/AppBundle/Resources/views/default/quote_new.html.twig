@@ -1,0 +1,42 @@
+{% extends 'AppBundle:Default:index.html.twig' %}
+
+{% block title %}Déposer une quote{% endblock %}
+{% block body %}
+    <div class="container">
+        {{ wo_render_breadcrumbs() }}
+        <div class="row">
+            {% include "AppBundle:Parts:flashbag.html.twig" %}
+            <h1 class="h2">Ajouter votre quote</h1>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Votre quote</h3>
+                </div>
+                <div class="panel-body">
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal'} }) }}
+                    <div class="form-group">
+                        {{ form_label(form.author, null, {'label_attr': {'class': 'col-sm-2 control-label'} }) }}
+                        {{ form_errors(form.author) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.author, {'attr': {'class': 'form-control', 'placeholder' : 'Pseudo'} }) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.content, null, {'label_attr': {'class': 'col-sm-2 control-label'} }) }}
+                        {{ form_errors(form.content) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.content, {'attr': {'class': 'form-control'} }) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Envoyer</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
