@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">{% endblock %}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 
     {% javascripts 'assets/js/bootstrap.js'
     output='compiled/js/main.js' %}
@@ -25,8 +26,14 @@
 </head>
 <body>
 {% include 'AppBundle:Parts:nav.html.twig' %}
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 
 {% block body %}{% endblock %}
+{% block script %}{% endblock %}
 
 <footer class="footer">
     <div class="container">
