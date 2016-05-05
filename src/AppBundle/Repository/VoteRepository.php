@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Quote;
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -61,6 +62,40 @@ class VoteRepository extends EntityRepository
     {
         return $this->findBy(['quote' => $quote], ["type" => $type]);
 
+    }
+
+    /**
+     * @param Quote $quote
+     * @param User $user
+     * @param string $type
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByQuoteUserType(Quote $quote, User $user, $type = "no")
+    {
+        return $this->createQueryBuilder('query')
+            ->where("query.quote = :quote")
+            ->andWhere("query.user = :user")
+            ->andWhere("query.type = :type")
+            ->setParameters(["quote" => $quote, "user" => $user, "type" => $type])
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Quote $quote
+     * @param User $user
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByQuoteUser(Quote $quote, User $user)
+    {
+        return $this->createQueryBuilder('query')
+            ->where("query.quote = :quote")
+            ->andWhere("query.user = :user")
+            ->setParameters(["quote" => $quote, "user" => $user])
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 }

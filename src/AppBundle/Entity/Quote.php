@@ -59,7 +59,7 @@ class Quote
      *
      * @return Quote
      */
-    public function setAuthor(User $author)
+    public function setAuthor($author)
     {
         $this->author = $author;
 

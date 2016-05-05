@@ -20,4 +20,14 @@ class UserRepository extends EntityRepository
     {
         return $this->findOneBy(['ip' => $ip]);
     }
+
+    /**
+     * @param $username
+     * @return null|User
+     */
+    public function findOneByUsername($username)
+    {
+        return $this->findOneBy(['username' => $username]);
+
+    }
 }

@@ -107,4 +107,41 @@ class QuoteRepository extends EntityRepository
     {
         return $this->_em->getRepository("AppBundle:Vote");
     }
+
+    /**
+     * @param $id
+     * @return null|Quote
+     */
+    public function findOneById($id)
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
+
+    public function findAllByVoteTypeAndLimit($type, $limit = 30)
+    {
+        $quotes = $this->findAllLimit($limit);
+        $votes = [];
+        foreach ($quotes as $key => $quote) {
+            $votes[$key] = $this->countTypeVoteForQuote($quote, $type);
+        }
+        arsort($votes);
+        $result = [];
+        foreach ($votes as $key => $vote) {
+            $result[] = $quotes[$key];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param int $limit
+     * @return array
+     */
+    public function findAllLimit($limit)
+    {
+        return $this->createQueryBuilder('query')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }
