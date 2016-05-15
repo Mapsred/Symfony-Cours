@@ -24,9 +24,7 @@ class LoadContent implements FixtureInterface
         $user = $manager->getRepository("AppBundle:User")->findOneByIp("127.0.0.1");
         if (!$user) {
             $user = new User();
-            $user->setIp("127.0.0.1");
-            $user->setArrivalDate(new \DateTime());
-            $user->setLastConnexion(new \DateTime());
+            $user->setIp("127.0.0.1")->setArrivalDate(new \DateTime())->setLastConnexion(new \DateTime());
 
             $manager->persist($user);
             $manager->flush();
@@ -34,9 +32,7 @@ class LoadContent implements FixtureInterface
 
         for ($i = 0; $i < 60; $i++) {
             $quote = new Quote();
-            $quote->setAuthor($user);
-            $quote->setContent("Content ".$i);
-            $quote->setDate(new \DateTime());
+            $quote->setAuthor($user)->setContent("Content ".$i)->setDate(new \DateTime());
             $manager->persist($quote);
         }
         $manager->flush();

@@ -116,10 +116,7 @@ class DefaultController extends Controller
             );
         } else {
             $vote = new Vote();
-            $vote->setUser($user);
-            $vote->setDate(Helper::getDate());
-            $vote->setQuote($quote);
-            $vote->setType($type);
+            $vote->setUser($user)->setDate(Helper::getDate())->setQuote($quote)->setType($type);
 
             $manager->persist($vote);
             $manager->flush();
